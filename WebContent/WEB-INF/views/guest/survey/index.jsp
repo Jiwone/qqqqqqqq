@@ -26,7 +26,7 @@
 				<br />
 				<br />
 			</p><br /><br /><br />
-			<a href="">START</a>
+			<a href="list">START</a>
 		</div>
 	</div>
 	</main>

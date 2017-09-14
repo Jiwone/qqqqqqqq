@@ -165,7 +165,7 @@ public class JdbcCounselingDao implements CounselingDao{
 		List<Comment> list = null;
 		Comment co=null;
 		String url = "jdbc:mysql://211.238.142.247/soonfacedb?autoReconnect=true&amp;useSSL=false&characterEncoding=UTF-8";	
-		String sql2 = "select c.number,comm.content,m.nickname from soonfacedb.Counseling c right outer join soonfacedb.Comment comm on c.number= comm.`text-number`\r\n" + 
+		String sql2 = "select c.number,comm.content,m.nickname from soonfacedb.Counseling c right outer join soonfacedb.Comment comm on c.number= comm.textnumber\r\n" + 
 				" left outer join soonfacedb.Member m on comm.member_id=m.id where c.number=?";
 		
 	     try {
@@ -238,7 +238,7 @@ public class JdbcCounselingDao implements CounselingDao{
 		 int commentCount=0;
 		 System.out.println("number = "+number);
 		 String url = "jdbc:mysql://211.238.142.247/soonfacedb?autoReconnect=true&amp;useSSL=false&characterEncoding=UTF-8";	
-		 String sqlcount="select count(`text-number`) count from Counseling c right outer join Comment comm on comm.`text-number`= c.number where comm.`text-number`=?";
+		 String sqlcount="select count(textnumber) count from Counseling c right outer join Comment comm on comm.textnumber= c.number where comm.textnumber=?";
 
 		      try {
 		         Class.forName("com.mysql.jdbc.Driver");
@@ -272,7 +272,7 @@ public class JdbcCounselingDao implements CounselingDao{
 		
 		int result=0;
 		String url = "jdbc:mysql://211.238.142.247/soonfacedb?autoReconnect=true&amp;useSSL=false&characterEncoding=UTF-8";
-	      String sql="INSERT INTO `soonfacedb`.`Comment` (`number`, `text-number`, `content`,`date`, `member_id`) VALUES ((select ifnull(max(cast(number as unsigned)),0)+1 from soonfacedb.Comment as b),?,?,(select sysdate()),(select id from soonfacedb.Member where nickname=?))";
+	      String sql="INSERT INTO `soonfacedb`.`Comment` (`number`, `textnumber`, `content`,`date`, `member_id`) VALUES ((select ifnull(max(cast(number as unsigned)),0)+1 from soonfacedb.Comment as b),?,?,(select sysdate()),(select id from soonfacedb.Member where nickname=?))";
 
 	      try {
 	         Class.forName("com.mysql.jdbc.Driver");
