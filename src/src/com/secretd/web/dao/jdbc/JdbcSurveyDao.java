@@ -293,7 +293,7 @@ System.out.println("count2"+count2);
 
 	@Override
 	public List<Disease> getDiseaseList(String dis1, String dis2, String dis3, String nNum) {
-		list<Disease> list=null;		
+		list<Disease> list=null;	  	
 		String url = "jdbc:mysql://211.238.142.247/soonfacedb?autoReconnect=true&amp;useSSL=false&characterEncoding=UTF-8";	
 		String sql = "select nextNum from Survey where queNum=? and ansNum=?";
 		try {
