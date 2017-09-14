@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 
 import src.com.secretd.web.dao.SurveyDao;
+import src.com.secretd.web.entity.Disease;
 import src.com.secretd.web.entity.Survey;
 import src.com.secretd.web.entity.Symptom;
 
@@ -170,6 +171,7 @@ public class JdbcSurveyDao implements SurveyDao {
 	@Override
 	public int getNum(int result, String nextNum, String ansNum) {
 		
+		double result2=0;
 
 		 int commentCount=0;
 	
@@ -196,7 +198,10 @@ public class JdbcSurveyDao implements SurveyDao {
 		         rscount.next();
 		         
 		         commentCount = rscount.getInt("count");
-		         
+		         result2=(double)((double)result/(double)commentCount)*100;
+		         System.out.println("commentCount :"+commentCount);
+		         System.out.println("result : "+result);
+		         System.out.println("result2 : "+result2);
 		         rscount.close();
 		         stCount.close();
 		         conn.close();
@@ -207,8 +212,7 @@ public class JdbcSurveyDao implements SurveyDao {
 		         e.printStackTrace();
 		      }
 
-		      System.out.println("dddddd"+commentCount);
-		return commentCount;
+		return (int)result2;
 		
 		
 		/*
@@ -255,6 +259,65 @@ System.out.println("count2"+count2);
 		return count2;
 		*/
 	
+	}
+
+	@Override
+	public String getNextNum(String nextNum, String ansNum) {
+		String nNum="";		
+		String url = "jdbc:mysql://211.238.142.247/soonfacedb?autoReconnect=true&amp;useSSL=false&characterEncoding=UTF-8";	
+		String sql = "select nextNum from Survey where queNum=? and ansNum=?";
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			// 연결 / 인증
+			Connection con1 = DriverManager.getConnection(url, "soonface", "2014");
+			// 실행
+			PreparedStatement st1 = con1.prepareStatement(sql);			
+			st1.setString(1,nextNum);
+			st1.setString(2,ansNum);
+			// 결과 가져오기
+			ResultSet rs1 = st1.executeQuery();			
+			// 결과 사용하기
+			if (rs1.next()) 
+				nNum=rs1.getString("nextNum");			
+			rs1.close();
+			st1.close();
+			con1.close();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return nNum;
+		
+	}
+
+	@Override
+	public List<Disease> getDiseaseList(String dis1, String dis2, String dis3, String nNum) {
+		list<Disease> list=null;		
+		String url = "jdbc:mysql://211.238.142.247/soonfacedb?autoReconnect=true&amp;useSSL=false&characterEncoding=UTF-8";	
+		String sql = "select nextNum from Survey where queNum=? and ansNum=?";
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			// 연결 / 인증
+			Connection con1 = DriverManager.getConnection(url, "soonface", "2014");
+			// 실행
+			PreparedStatement st1 = con1.prepareStatement(sql);			
+			st1.setString(1,nextNum);
+			st1.setString(2,ansNum);
+			// 결과 가져오기
+			ResultSet rs1 = st1.executeQuery();			
+			// 결과 사용하기
+			if (rs1.next()) 
+				nNum=rs1.getString("nextNum");			
+			rs1.close();
+			st1.close();
+			con1.close();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
 	}
 	
 		

@@ -48,12 +48,8 @@
 <c:forEach var="m" items="${list2}">
 					<tr>
 						<td>1</td>
-						<td><input type="checkbox" name="number" value="${m.num}">${m.content}</td> 
-					
-						
+						<td><input type="checkbox" name="number" value="${m.num}">${m.content}</td> 	
 					</tr>
-					
-
 				</c:forEach>
 				<c:set var="ansNum" value="${param.ansNum}"/>;
 				 <fmt:parseNumber var = "i" type = "number" value = "${ansNum}" />
